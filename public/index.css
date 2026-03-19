@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Tahoma', sans-serif; }
+        .pgso-blue { background-color: #3c5473; } 
+        .pgso-btn { background-color: #3c5473; }
+        .pgso-btn:hover { background-color: #131c24; }

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Summary - PGSO</title>
+    <link rel="icon" type="image/png" href="../pgso.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="summary.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-white border-b border-gray-200 py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <a href="../index.html" class="text-3xl text-slate-600 no-underline">
+                <img src="../pgso.png" alt="PGSO Logo" class="w-12 h-12">
+            </a>
+            <div>
+                <h1 class="text-xl font-semibold tracking-tight text-gray-800">PGSO-RES</h1>
+                <p class="text-xs text-gray-500 font-light">Provincial General Services Offices</p>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+        
+        <a id="edit-reservation-link" href="#" class="inline-flex items-center text-sm font-bold text-gray-900 mb-4 hover:underline">
+            <i class="fa-regular fa-pen-to-square mr-2"></i> Edit Reservation
+        </a>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            
+            <div class="pgso-blue text-white p-6">
+                <h2 class="text-xl font-medium">Reservation Summary</h2>
+                <p class="text-slate-300 text-sm font-light">Please review your reservation details</p>
+            </div>
+
+            <div class="p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
+                    <div>
+                        <h3 class="text-pgso-text font-medium mb-4 text-lg">Contact Information</h3>
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 mb-1">Name:</p>
+                            <p class="font-bold text-gray-900 text-lg" id="summary-name">Loading...</p>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 mb-1">Contact Number:</p>
+                            <p class="font-bold text-gray-900 text-lg" id="summary-contact">Loading...</p>
+                        </div>
+                        <div class="mb-4">
+                             <p class="text-xs text-gray-500 mb-1">Email Address:</p>
+                             <p class="font-bold text-gray-900 text-lg" id="summary-email">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-pgso-text font-medium mb-4 text-lg">Event Details</h3>
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 mb-1">Venue:</p>
+                            <p class="font-bold text-gray-900 text-lg" id="summary-venue">Loading...</p>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 mb-1">Event Type:</p>
+                            <p class="font-bold text-gray-900 text-lg" id="summary-event-type">Loading...</p>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-xs text-gray-500 mb-1">Date(s):</p>
+                            <p class="font-bold text-gray-900 text-lg" id="summary-date">Loading...</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><p class="text-xs text-gray-500 mb-1">Time:</p><p class="font-bold text-gray-900" id="summary-time">Loading...</p></div>
+                            <div><p class="text-xs text-gray-500 mb-1">Duration:</p><p class="font-bold text-gray-900" id="summary-duration">Loading...</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-pgso-text font-medium mb-4 text-lg">Additional Equipment</h3>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-white border-b border-gray-200">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold text-gray-900">Equipment</th>
+                                    <th class="px-6 py-4 font-bold text-gray-900 text-center">Quantity</th>
+                                    <th class="px-6 py-4 font-bold text-gray-900">Unit</th>
+                                    <th class="px-6 py-4 font-bold text-gray-900 text-right">Unit Price</th>
+                                    <th class="px-6 py-4 font-bold text-gray-900 text-right">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100" id="equipment-summary-tbody">
+                                <tr><td colspan="5" class="px-6 py-4 text-center text-gray-500" id="no-equipment-message">No additional equipment selected.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-pgso-text font-medium mb-2 text-lg">Notes / Remarks</h3>
+                    <div class="bg-gray-50 border border-gray-200 rounded p-4 text-gray-700" id="summary-notes">None</div>
+                </div>
+
+                <div class="bg-slate-100 rounded-lg p-8 mb-8 border border-slate-200">
+                    <h4 class="text-pgso-text font-medium mb-6">Payment Breakdown</h4>
+                    <div class="flex justify-between text-sm mb-3 text-gray-800">
+                        <span>Venue Rental (Base + Overage):</span><span class="font-bold" id="summary-base-rental">₱0</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-3 text-gray-800">
+                        <span>Total Equipment Cost:</span><span class="font-bold" id="summary-equipment-cost">₱0</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-6 text-gray-800 border-b border-gray-300 pb-6">
+                        <span>Security Deposit (Refundable):</span><span class="font-bold">₱3,000</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-bold text-pgso-text">Total Amount:</span>
+                        <span class="text-3xl font-bold text-pgso-text" id="summary-total-amount">₱3,000</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4 font-light">Note: The security deposit of ₱3,000 will be refunded after event completion, subject to inspection and no damages.</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 justify-between">
+                    <button onclick="goBack()" class="px-8 py-3 border border-gray-300 rounded-lg text-gray-700 font-bold hover:bg-gray-50 transition text-center w-full md:w-auto">
+                        Go Back to Edit
+                    </button>
+                    <button onclick="openRules()" class="px-8 py-3 pgso-btn text-white rounded-lg font-bold shadow-md w-full md:w-auto">
+                        Confirm & Submit Reservation
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 text-gray-400 text-sm">
+        &copy; 2025 Provincial General Services Office. All rights reserved.
+    </footer>
+
+    <div id="rulesModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[85vh]">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
+                <h3 class="text-lg font-bold text-pgso-text"><i class="fa-solid fa-file-contract mr-2"></i>ADMINISTRATIVE PROVISIONS</h3>
+                <button onclick="closeRules()" class="text-gray-400 hover:text-gray-600 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto rules-content text-m text-gray-600 space-y-4">
+                
+                <ol class="list-decimal pl-5 space-y-2">
+                    <li>The requesting party renting the facility shall provide adequate security to maintain peace and order. It shall maintain the cleanliness of the venue at all times.</li>
+                    <li>Equipment and/or Facility must be clean after use.</li>
+                    <li>Requesting party shall COORDINATE with the PGSO Custodian before their scheduled activity and to present the approved RENTAL FORM for coordination of the activity.</li>
+                    <li>The requesting party shall pay the preparation day and should not exceed the date stated above, unless approved and have paid the corresponding rent.</li>
+                    <li><strong>Priority shall be given to government activities and functions.</strong></li>
+                    <li>Damages or losses of the facilities, equipment, or fixture, shall be the sole responsibility of the requesting party. He shall make necessary repair for damages and replace any equipment destroyed.</li>
+                    <li><strong>Security deposit of ₱3,000.00 will be collected to cover any extensions and/or damages incurred, and to be refunded after clearance from the personnel in charge.</strong></li>
+                    <li>The electricity consumption of any equipment being brought by the requesting party should pay the correspondingamount based on the computation of the electrical engineer.</li>
+                    <li>Event and occasions that require a large audience or general entry (e.g. Church Activities, Grand Reunions, Weddings, etc.) are strongly discouraged in order to protect the facility and its equipment and to serve the objective of the facility.</li>
+                    <li>In case of cancellation, inform the office one week prior. Otherwise, paid rent is non-refundable.</strong></li>
+                    <li>When water & electricity supply is not available due to uncontrollable/unforeseen circumstances, such as scheduled/unscheduled power interruption, the Benguet Provincial Government is NOT responsible/obligated to produce/supply water & electricity. Water Delivery and Request/Order to use Generator Set should be shouldered by the requesting party, and that the office must be notified</li>
+                </ol>
+
+                <div class="mt-6 pt-4 border-t border-gray-100">
+                    <label class="flex items-start cursor-pointer group">
+                        <input type="checkbox" id="agree-checkbox" class="mt-1 w-4 h-4 text-pgso-blue border-gray-300 rounded focus:ring-pgso-blue cursor-pointer">
+                        <span class="ml-3 text-gray-800 font-medium group-hover:text-pgso-blue transition">I have read and understood the administrative provisions stated above.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-gray-100 flex gap-4 bg-gray-50 rounded-b-xl">
+                <button onclick="closeRules()" class="flex-1 py-3 border border-gray-300 rounded-lg text-gray-600 font-bold hover:bg-white transition">Cancel</button>
+                <button onclick="submitReservation()" id="final-submit-btn" class="flex-1 py-3 pgso-btn text-white rounded-lg font-bold shadow-md opacity-50 cursor-not-allowed" disabled>Agree & Send Request</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full text-center mx-4">
+            <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Reservation Sent!</h3>
+            <p class="text-gray-500 text-sm mb-6">
+                Your reservation request has been successfully submitted. Please wait for confirmation via email or text message from our admin.
+            </p>
+            <button onclick="returnHome()" class="w-full pgso-btn text-white font-bold py-2 rounded-lg hover:opacity-90 transition">
+                Return to Homepage
+            </button>
+        </div>
+    </div>
+
+    <script type="module" src="summary.js"></script>
+
+</body>
+</html>

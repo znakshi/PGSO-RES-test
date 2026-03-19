@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .pgso-blue { background-color: #3c5473; }
+        .text-pgso-blue { color: #3c5473; }
+        .pgso-btn { background-color: #3c5473; }
+        .pgso-btn:hover { background-color: #2c3e50; }
+        
+        /* Calendar Specifics */
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; text-align: center; }
+        .cal-cell { height: 40px; width: 40px; display: flex; align-items: center; justify-content: center; margin: 0 auto; border-radius: 50%; cursor: pointer; transition: all 0.2s; position: relative; }
+        .cal-cell:hover:not(.empty) { background-color: #f3f4f6; }
+        
+        .has-event::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; border-radius: 50%; }
+        .status-pending::after { background-color: #eab308; } 
+        .status-confirmed::after { background-color: #22c55e; } 
+        .status-declined::after { background-color: #ef4444; } 
+        
+        .cal-selected { background-color: #3c5473 !important; color: white !important; font-weight: bold; }
+        .cal-today { border: 2px solid #3c5473; }
+        
+        .modal-input { background-color: #f9fafb; border: 1px solid #e5e7eb; outline: none; transition: border 0.2s; }
+        .modal-input:focus { border-color: #3c5473; background-color: #fff; }

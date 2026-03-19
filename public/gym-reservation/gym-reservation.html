@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Reservation - PGSO</title>
+    <link rel="icon" type="image/png" href="../pgso.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="gym-reservation.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-white border-b border-gray-200 py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <a href="../index.html" class="text-3xl text-slate-600 no-underline">
+                <img src="../pgso.png" alt="PGSO Logo" class="w-12 h-12">
+            </a>
+            <div>
+                <h1 class="text-xl font-semibold tracking-tight text-gray-800">PGSO-RES</h1>
+                <p class="text-xs text-gray-500 font-light">Provincial General Services Offices</p>
+            </div>
+        </div>
+        <button class="open-client-login bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 py-2 px-4 rounded font-medium transition text-sm shadow-sm">Client Login</button>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+        <a href="../index.html" class="inline-flex items-center text-sm font-medium text-gray-600 mb-6 hover:text-pgso-blue transition">
+            <i class="fa-solid fa-arrow-left mr-2"></i> Back to Venues
+        </a>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold mb-2">Provincial Gymnasium</h2>
+            <p class="text-gray-500 mb-8">Fill out the form below to reserve your venue</p>
+
+            <form id="reservation-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div><label class="block text-sm font-bold mb-2">Full Name *</label><input type="text" class="form-input w-full rounded-md p-3" placeholder=""></div>
+                    <div><label class="block text-sm font-bold mb-2">Contact Number *</label><input type="text" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-input w-full rounded-md p-3" placeholder=""></div>
+                    <div class="md:col-span-2"><label class="block text-sm font-bold mb-2">Email Address *</label><input type="email" class="form-input w-full rounded-md p-3" placeholder="e.g., juan@email.com"></div>
+                </div>
+
+                <div class="mb-6"><label class="block text-sm font-bold mb-2">Event Type</label><input type="text" class="form-input w-full rounded-md p-3" placeholder="e.g., Sports, Conference, Tournament"></div>
+
+                <div class="mb-8">
+                    <label class="block text-sm font-bold mb-3">Registration Details *</label>
+                    <div class="flex gap-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <div class="flex items-center">
+                            <input type="radio" name="regFee" id="reg-with" value="With Registration Fee" class="w-4 h-4 text-pgso-blue bg-gray-100 border-gray-300">
+                            <label for="reg-with" class="ml-2 text-sm text-gray-700">With Registration Fee</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" name="regFee" id="reg-without" value="Without Registration Fee" class="w-4 h-4 text-pgso-blue bg-gray-100 border-gray-300" checked>
+                            <label for="reg-without" class="ml-2 text-sm text-gray-700">Without Registration Fee</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold mb-2">Duration *</h3>
+                <p class="text-gray-500 mb-2">Rental of Open Gym (6:00 am to 5:00 pm Only)</p>
+                <div class="space-y-3 mb-2">
+                    <div class="flex items-center"><input id="duration-4" name="duration" type="radio" class="w-4 h-4 text-pgso-blue bg-gray-100 border-gray-300" data-duration-value="4"><label for="duration-4" class="ml-3 font-bold text-gray-800">4 hours and below (₱1,500)</label></div>
+                    <div class="flex items-center"><input id="duration-8" name="duration" type="radio" class="w-4 h-4 text-pgso-blue bg-gray-100 border-gray-300" data-duration-value="8"><label for="duration-8" class="ml-3 font-bold text-gray-800">8 hours (₱2,500)</label></div>
+                </div>
+                <p class="text-s text-gray-500 mb-8">₱400 for every additional hour or a fraction thereof</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div><label class="block text-sm font-bold mb-2">Start Time *</label><input type="time" class="form-input w-full rounded-md p-3 text-gray-500"></div>
+                    <div><label class="block text-sm font-bold mb-2">End Time *</label><input type="time" class="form-input w-full rounded-md p-3 text-gray-500"></div>
+                </div>
+
+                <div class="mb-8">
+                     <label class="block text-sm font-bold mb-4">Select Date *</label>
+                     <div class="border border-gray-100 rounded-xl p-6 max-w-md mx-auto">
+                        <div class="flex justify-between items-center mb-6">
+                            <button type="button" id="prevMonth" class="text-gray-800 hover:bg-gray-100 p-2 rounded-full"><i class="fa-solid fa-chevron-left"></i></button>
+                            <h4 id="currentMonthYear" class="text-lg font-bold">Month Year</h4>
+                            <button type="button" id="nextMonth" class="text-gray-800 hover:bg-gray-100 p-2 rounded-full"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                        <div class="grid grid-cols-7 gap-2 text-center mb-4 font-bold text-gray-800"><div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div></div>
+                        <div id="calendar-grid" class="grid grid-cols-7 gap-2 justify-items-center text-gray-700"></div>
+                     </div>
+                </div>
+
+                <h3 class="text-lg font-bold mb-4">Other Equipment</h3>
+                <div class="overflow-x-auto mb-8">
+                    <table class="min-w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase border-b">
+                            <tr>
+                                <th class="p-4">Select</th>
+                                <th class="py-3">Equipment Name</th>
+                                <th class="py-3">Unit</th>
+                                <th class="py-3">Price</th>
+                                <th class="py-3 w-24">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100" id="equipment-table-body">
+                            </tbody>
+                    </table>
+                </div>
+
+                <div class="mb-8"><label class="block text-sm font-bold mb-2">Notes / Remarks (Optional)</label><textarea class="form-input w-full rounded-md p-3 h-24 resize-none" placeholder="Any special requests..."></textarea></div>
+
+                <div class="bg-slate-100 rounded-lg p-6 mb-8">
+                    <div class="flex justify-between text-sm mb-2 text-gray-700"><span>Venue Base Price:</span><span id="base-price-display" class="font-medium">₱0</span></div>
+                    <div class="flex justify-between text-sm mb-2 text-gray-700"><span>Total Days:</span><span id="days-reserved-display" class="font-medium">0 days</span></div>
+                     <div class="flex justify-between text-sm mb-2 text-gray-700"><span>Equipment Cost:</span><span id="equipment-cost-display" class="font-medium">₱0</span></div>
+                    <div class="flex justify-between text-sm mb-2 text-gray-700"><span>Sub-Total:</span><span id="subtotal-display" class="font-medium">₱0</span></div>
+                    <div class="flex justify-between text-sm mb-4 text-gray-700 border-b border-gray-300 pb-4"><span>Security Deposit:</span><span class="font-medium">₱3,000</span></div>
+                    <div class="flex justify-between items-center"><span class="text-xl font-bold text-gray-800">Estimated Total:</span><span id="estimated-total-display" class="text-3xl font-bold text-pgso-blue">₱3,000</span></div>
+                </div>
+
+                <button type="button" class="w-full pgso-btn text-white font-bold py-4 rounded-lg text-lg transition shadow-md">View Reservation Summary</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 text-gray-400 text-sm">&copy; 2025 Provincial General Services Office.</footer>
+
+    <script type="module" src="gym-reservation.js"></script>
+    <script type="module" src="../client-login.js"></script>
+</body>
+</html>
