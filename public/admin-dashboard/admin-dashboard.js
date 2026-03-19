@@ -7,6 +7,11 @@ import { supabase } from "../supabase-config.js";
         let charts = {};
         
         // --- DEFINE FUNCTIONS GLOBALLY ---
+        window.logoutAdmin = async function() {
+            await supabase.auth.signOut();
+            window.location.href = "../admin-login/admin-login.html";
+        };
+
         window.switchTab = function(t) {
             ['calendar','analytics','inventory'].forEach(id => {
                 document.getElementById('section-'+id).classList.add('hidden');

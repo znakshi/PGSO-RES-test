@@ -132,10 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // If already logged in
             if (user) {
-                // Supabase doesn't easily expose email_verified without checking identities or app_metadata,
-                // but usually the session isn't created if email confirm is required and not done.
-                // Assuming session means logged in.
-                alert('You are already logged in as ' + user.email + '. Proceeding to reservation form!');
+                const wantLogout = confirm('You are currently logged in as ' + user.email + '.\n\nWould you like to LOG OUT? (Click OK to Log Out, or Cancel to stay logged in).');
+                if (wantLogout) {
+                    await supabase.auth.signOut();
+                    alert("You have been successfully logged out!");
+                }
+                // If they click Cancel, they just stay logged in
                 return;
             }
 
